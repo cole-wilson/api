@@ -59,7 +59,7 @@ def make_qr():
     data = request.args.get("data")
     error_correction = qrcode.constants.ERROR_CORRECT_L
     
-    if inside is not None: error_correction = qrcode.constants.ERROR_CORRECT_L
+    if inside is not None: error_correction = qrcode.constants.ERROR_CORRECT_H
 
     img = qrcode.make(data, version=size, error_correction=error_correction, box_size=10, border=border,)#fill_color=foreground, back_color=background
     
@@ -68,9 +68,7 @@ def make_qr():
         brand = requests.get(inside)
         brand = Image.open(BytesIO(brand.content))
         brand = brand.resize((w, h))
-        xmin = ymin = int((img.height / 2) - (h / 2))
-        xmax = ymax = int((img.width / 2) + (w / 2))
-        img.paste(brand, (0, 0, w, h))
+        img.paste(brand, (0, 0, 100, 100))
         
     return serve_image(img)
 
