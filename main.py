@@ -24,13 +24,9 @@ def root():
 @cross_origin()
 def shorten_url():
   token = request.args.get("token")
-  url = request.arg.get("url")
+  url = request.args.get("url")
   if token == os.environ["SHORTY_TOKEN"]:
-    resp = requests.post("https://srv-captain--shorty/api/link",
-      headers={
-        "Authorization": f"Bearer {token}"
-      },
-      json={
+    resp = requests.post("https://srv-captain--shorty/api/link",headers={"Authorization": f"Bearer {token}"},json={
         "url": url
     })
     return resp.json()
