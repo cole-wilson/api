@@ -23,7 +23,7 @@ $data = '{"url": "'.$_GET['url'].'"}';
    $resp = curl_exec($curl);
    curl_close($curl);
    $json = json_decode($result, true);
-   echo $resp
+   echo $resp;
 }
 else {
    header('HTTP/1.0 403 Forbidden');
