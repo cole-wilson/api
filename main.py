@@ -26,7 +26,7 @@ def shorten_url():
   token = request.args.get("token")
   url = request.arg.get("url")
   if token == os.environ["SHORTY_TOKEN"]:
-    resp = requests.post("https://srv-captain--shorty/api/link",
+    resp = requests.post("https://shorty.ridgeback.cole.ws/api/link",
       headers={
         "Authorization": f"Bearer {token}"
       },
