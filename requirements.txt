@@ -1,5 +1,5 @@
 flask
 qrcode
-PIL
+pillow
 requests
 flask_cors
