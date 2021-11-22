@@ -67,7 +67,7 @@ def make_qr():
         w, h = round(0.25 * img.width), round(0.25 * img.height)
         brand = requests.get(inside)
         brand = Image.open(BytesIO(brand.content))
-        brand = brand.resize((w, h))
+        brand = brand.resize((100, 100))
         img.paste(brand, (0, 0, 100, 100))
         
     return serve_image(img)
