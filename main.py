@@ -48,7 +48,7 @@ def shorten_url():
     abort(403)
 
 @app.route('qr')
-@corss_origin()
+@cross_origin()
 def make_qr():
     background = request.args.get("bg", "white")
     foreground = request.args.get("fg", "black")
