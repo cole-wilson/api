@@ -62,8 +62,7 @@ def make_qr():
 
     qr = qrcode.QRCode(version=size, error_correction=error_correction, box_size=10, border=border)
     qr.add_data(data)
-    qr.make(fit=True)
-    img = qr.make_image(fill_color=foreground, back_color=background)
+    img = qr.make(fill_color=foreground, back_color=background)
     
     if inside is not None:
         w, h = round(0.25 * img.width), round(0.25 * img.height)
@@ -75,7 +74,7 @@ def make_qr():
         img.paste(brand, (xmin, ymin, xmax, ymax))
         
     return serve_image(img)
-    
+
 app.run(port=80, host="0.0.0.0")
     
     
