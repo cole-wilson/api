@@ -3,7 +3,7 @@ import qrcode
 import requests
 from io import BytesIO, StringIO
 from flask_cors import CORS, cross_origin
-from flask import Flask, redirect, request
+from flask import Flask, redirect, request, send_file
 
 app = Flask(__name__)
 cors = CORS(app)
