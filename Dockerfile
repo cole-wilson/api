@@ -7,7 +7,7 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 COPY ./requirements.txt /usr/src/app/
-RUN python -m pip install --upgrade pip
+RUN easy_install pillow
 RUN pip install --no-cache-dir -r requirements.txt
 COPY ./ /usr/src/app
 
