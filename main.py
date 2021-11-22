@@ -68,8 +68,8 @@ def make_qr():
         brand = requests.get(inside)
         brand = Image.open(BytesIO(brand.content))
         brand = brand.resize((w, h))
-        xmin = ymin = int((width / 2) - (logo_size / 2))
-        xmax = ymax = int((width / 2) + (logo_size / 2))
+        xmin = ymin = int((img.height / 2) - (h / 2))
+        xmax = ymax = int((img.width / 2) + (w / 2))
         img.paste(brand, (xmin, ymin, xmax, ymax))
         
     return serve_image(img)
