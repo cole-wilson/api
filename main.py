@@ -7,6 +7,15 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+@app.after_request
+def apply_text_only(response):
+    response.headers["Content-Type"] = "text/plain"
+    return response
+
+@app.errorhandler(403)
+def forbidden(e):
+    return '403 forbidden'
+
 @app.route('/')
 def root():
   return redirect(os.environ['ROOT_URL'], code=302)
@@ -16,3 +25,14 @@ def root():
 def shorten_url():
   token = request.args.get("token")
   url = request.arg.get("url")
+  if token == os.environ["SHORTY_TOKEN"]:
+    resp = requests.post("https://srv-captain--shorty/api/link",
+      headers={
+        "Authorization": f"Bearer {token}"
+      },
+      json={
+        "url": url
+    })
+    return resp.json()
+  else:
+    abort(403)
