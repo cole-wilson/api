@@ -36,3 +36,5 @@ def shorten_url():
     return resp.json()
   else:
     abort(403)
+
+app.run(port=80, host="0.0.0.0")
