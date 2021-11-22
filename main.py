@@ -2,6 +2,7 @@ import os
 import qrcode
 import requests
 from io import BytesIO, StringIO
+from PIL import Image
 from flask_cors import CORS, cross_origin
 from flask import Flask, redirect, request, send_file
 
@@ -60,7 +61,7 @@ def make_qr():
     
     if inside is not None: error_correction = qrcode.constants.ERROR_CORRECT_H
 
-    img = qrcode.make(data, version=size, error_correction=error_correction, box_size=1, border=border,)#fill_color=foreground, back_color=background
+    img = qrcode.make(data, version=size, error_correction=error_correction, box_size=10, border=border,)#fill_color=foreground, back_color=background
     
     if inside is not None:
         w, h = round(0.25 * img.width), round(0.25 * img.height)
