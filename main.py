@@ -54,7 +54,7 @@ def make_qr():
     background = request.args.get("bg", "white")
     foreground = request.args.get("fg", "black")
     inside = request.args.get("inside", None)
-    size = request.args.get("size", 20)
+    size = request.args.get("size", 1)
     border = request.args.get("border", 2)
     data = request.args.get("data")
     error_correction = qrcode.constants.ERROR_CORRECT_L
@@ -70,7 +70,7 @@ def make_qr():
         brand = brand.resize((w, h))
         xmin = ymin = int((img.height / 2) - (h / 2))
         xmax = ymax = int((img.width / 2) + (w / 2))
-        img.paste(brand, (xmin, ymin, xmax, ymax))
+        img.paste(brand, (0, 0, w, h))
         
     return serve_image(img)
 
