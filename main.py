@@ -12,7 +12,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 def serve_image(pil_img):
     img_io = StringIO()
-    pil_img.save("a")
+    pil_img.save("image.png", "RGBA")
     img_io.seek(0)
     return send_file("a", mimetype='image/jpeg')
 
