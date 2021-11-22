@@ -11,9 +11,9 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 def serve_image(pil_img):
     img_io = StringIO()
-    pil_img.save(img_io, 'JPEG', quality=70)
+    pil_img.save("a")
     img_io.seek(0)
-    return send_file(img_io, mimetype='image/jpeg')
+    return send_file("a", mimetype='image/jpeg')
 
 @app.after_request
 def apply_text_only(response):
