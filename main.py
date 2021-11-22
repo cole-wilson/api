@@ -60,7 +60,7 @@ def make_qr():
     
     if inside is not None: error_correction = qrcode.constants.ERROR_CORRECT_H
 
-    qr = qrcode.QRCode(version=size, error_correction=error_correction, box_size=10, border=border,fill_color=foreground, back_color=background)
+    qr = qrcode.QRCode(version=size, error_correction=error_correction, box_size=10, border=border,)#fill_color=foreground, back_color=background
     qr.add_data(data)
     img = qr.make()
     
