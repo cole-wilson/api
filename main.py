@@ -55,7 +55,7 @@ def make_qr():
     foreground = request.args.get("fg", "black")
     inside = request.args.get("inside", None)
     size = request.args.get("size", 1)
-    border = request.args.get("border", 2)
+    border = request.args.get("border", 1)
     data = request.args.get("data")
     error_correction = qrcode.constants.ERROR_CORRECT_L
     
