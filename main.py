@@ -29,7 +29,8 @@ def shorten_url():
     resp = requests.post("http://srv-captain--shorty/api/link",headers={"Authorization": f"Bearer {token}"},json={
         "url": url
     })
-    return resp.json()
+    try: return resp.json()["data"]["url"]
+    except: return resp.json()
   else:
     abort(403)
 
