@@ -71,7 +71,7 @@ def make_qr():
         xmax = ymax = int((width / 2) + (logo_size / 2))
         img.paste(brand, (xmin, ymin, xmax, ymax))
         
-    return str(img)
+    return serve_image(img)
 
 app.run(port=80, host="0.0.0.0")
     
