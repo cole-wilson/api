@@ -68,7 +68,9 @@ def make_qr():
         w, h = round(0.25 * img.width), round(0.25 * img.height)
         brand = requests.get(inside)
         brand = Image.open(BytesIO(brand.content)).convert("RGBA")
-        brand = brand.resize(((img.width - w)/2, (img.height - h)/2))
+        brand = brand.resize((w, h))
+        xpos, ypos = (img.width - w)/2, (img.height - h)/2
+        xpos, ypos = round(xpos), round(ypos)
         img.paste(brand, (0, 0, 100, 100))
         
     return serve_image(img)
