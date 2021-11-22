@@ -14,7 +14,7 @@ def serve_image(pil_img):
     img_io = StringIO()
     pil_img.save("image.png")
     img_io.seek(0)
-    return send_file("a", mimetype='image/jpeg')
+    return send_file("a.png", mimetype='image/jpeg')
 
 @app.after_request
 def apply_text_only(response):
