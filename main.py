@@ -62,11 +62,12 @@ def make_qr():
     if inside is not None: error_correction = qrcode.constants.ERROR_CORRECT_H
 
     img = qrcode.make(data, version=size, error_correction=error_correction, box_size=10, border=border,)#fill_color=foreground, back_color=background
-    
+    img = img.convert("RGBA")
+
     if inside is not None:
         w, h = round(0.25 * img.width), round(0.25 * img.height)
         brand = requests.get(inside)
-        brand = Image.open(BytesIO(brand.content))
+        brand = Image.open(BytesIO(brand.content)).convert("RGBA")
         brand = brand.resize((100, 100))
         img.paste(brand, (0, 0, 100, 100))
         
