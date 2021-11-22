@@ -4,7 +4,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST');
 header("Access-Control-Allow-Headers: X-Requested-With");
 
-if ($_GET[''] == $_ENV['SHORTY_TOKEN']) {
+if ($_GET['token'] == $_ENV['SHORTY_TOKEN']) {
    $url = "https://srv-captain--shorty/api/link";
    $curl = curl_init($url);
    curl_setopt($curl, CURLOPT_URL, $url);
@@ -13,23 +13,19 @@ if ($_GET[''] == $_ENV['SHORTY_TOKEN']) {
    $headers = array(
       "Accept: application/json",
       "Content-Type: application/json",
+      "Authorization: Bearer ".$_ENV["SHORTY_TOKEN"]
    );
    curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
-$data = <<<DATA
-{
-  "Id": 78912,
-  "Customer": "Jason Sweet",
-  "Quantity": 1,
-  "Price": 18.00
-}
-DATA;
+$data = '{"url": "'.$_GET['url'].'"}';
 
    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
    $resp = curl_exec($curl);
    curl_close($curl);
-   echo $resp;
+   $json = json_decode($result, true);
+   echo $resp
 }
 else {
-  echo "403";
+   header('HTTP/1.0 403 Forbidden');
+   echo "403 forbidden";
 }
