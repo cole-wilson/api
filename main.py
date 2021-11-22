@@ -71,7 +71,7 @@ def make_qr():
         brand = brand.resize((w, h))
         xpos, ypos = (img.width - w)/2, (img.height - h)/2
         xpos, ypos = round(xpos), round(ypos)
-        img.paste(brand, (0, 0, 100, 100))
+        img.paste(brand, (xpos, ypos, xpos + w, ypos + h))
         
     return serve_image(img)
 
