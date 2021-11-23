@@ -39,11 +39,12 @@ def root():
 def shorten_url():
   token = request.args.get("token")
   url = request.args.get("url")
+  domain = request.args.get("domain", "https://cole.ws/+")
   if token == os.environ["SHORTY_TOKEN"]:
     resp = requests.post("http://srv-captain--shorty/api/link",headers={"Authorization": f"Bearer {token}"},json={
         "url": url
     })
-    try: return "https://cole.ws/+" + resp.json()["data"]["name"]
+    try: return domain + resp.json()["data"]["name"]
     except: return resp.json()
   else:
     abort(403)
