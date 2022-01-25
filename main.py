@@ -23,6 +23,9 @@ def apply_text_only(response):
     response.headers["Content-Type"] = "text/plain"
     return response
 
+@app.errorhandler(405)
+def forbidden(e): return '405 method not allowed'
+
 @app.errorhandler(403)
 def forbidden(e): return '403 forbidden'
 
@@ -50,11 +53,6 @@ def shorten_url():
     except: return resp.json()
   else:
     abort(403)
-
-@app.route('/diagon', methods=["GET"])
-@cross_origin()
-def diagon():
-    return "POST"
     
 @app.route('/diagon', methods=["POST"])
 @cross_origin()
