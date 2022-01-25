@@ -58,7 +58,7 @@ def shorten_url():
 @cross_origin()
 def diagon():
     graph_type = request.args.get("type", "math").title()
-    return requests.get("localhost:7642?type="+graph_type, data=request.get_data().decode()).content
+    return requests.get("http://localhost:7642?type="+graph_type, data=request.get_data().decode()).content
     
 @app.route('/qr')
 @cross_origin()
