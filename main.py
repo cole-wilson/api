@@ -5,6 +5,7 @@ from io import BytesIO, StringIO
 from PIL import Image
 from flask_cors import CORS, cross_origin
 from flask import Flask, redirect, request, send_file
+from subprocess import Popen, PIPE, STDOUT
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -48,6 +49,15 @@ def shorten_url():
     except: return resp.json()
   else:
     abort(403)
+
+@app.route('/diagon')
+@corss_origin()
+def diagon():
+    graph_type = request.args.get("type", "math").title()
+    style = request.args.get("style", "Unicode").title()
+    p = Popen(['diagon', graph_type, '-style='+style], stdout=PIPE, stdin=PIPE, stderr=PIPE)
+    stdout_data = p.communicate(input=str(request.get_data(), 'utf-8'))[0]
+    return stdout_data
 
 @app.route('/qr')
 @cross_origin()
