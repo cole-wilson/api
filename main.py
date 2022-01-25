@@ -51,7 +51,7 @@ def shorten_url():
     abort(403)
 
 @app.route('/diagon')
-@corss_origin()
+@cross_origin()
 def diagon():
     graph_type = request.args.get("type", "math").title()
     style = request.args.get("style", "Unicode").title()
