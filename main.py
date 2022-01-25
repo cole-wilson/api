@@ -53,15 +53,6 @@ def shorten_url():
     except: return resp.json()
   else:
     abort(403)
-    
-@app.route('/diagon', methods=["POST"])
-@cross_origin()
-def diagon():
-    graph_type = request.args.get("type", "math").title()
-    style = request.args.get("style", "Unicode").title()
-    p = Popen(['bin/diagon', graph_type, '-style='+style], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-    stdout_data = p.communicate(input=str(request.get_data(), 'utf-8'))[0]
-    return stdout_data
 
 @app.route('/qr')
 @cross_origin()
