@@ -51,6 +51,11 @@ def shorten_url():
   else:
     abort(403)
 
+@app.route('/diagon', methods=["GET"])
+@cross_origin()
+def diagon():
+    return "POST"
+    
 @app.route('/diagon', methods=["POST"])
 @cross_origin()
 def diagon():
