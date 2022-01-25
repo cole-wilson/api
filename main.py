@@ -11,6 +11,7 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+
 def serve_image(pil_img):
     img_io = StringIO()
     pil_img.save("image.png")
