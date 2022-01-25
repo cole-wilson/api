@@ -54,6 +54,12 @@ def shorten_url():
   else:
     abort(403)
 
+@app.route('/diagon', methods=["POST"])
+@cross_origin()
+def diagon():
+    graph_type = request.args.get("type", "math").title()
+    return requests.get("localhost:7642?type="+graph_type, data=request.get_data().decode()).content
+    
 @app.route('/qr')
 @cross_origin()
 def make_qr():
