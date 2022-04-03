@@ -48,7 +48,7 @@ def shorten_url():
   if token == os.environ["SHORTY_TOKEN"]:
     resp = requests.post("http://srv-captain--shorty/api/link",headers={"Authorization": f"Bearer {token}"},json={
         "url": url
-    })
+    } if request.args.get("name", None) is None else {"url": url, "name": request.args.get("name", "")})
     try: return domain + resp.json()["data"]["name"]
     except: return resp.json()
   else:
