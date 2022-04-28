@@ -73,7 +73,7 @@ def make_qr():
     
     if inside is not None: error_correction = qrcode.constants.ERROR_CORRECT_H
 
-    img = qrcode.make(data, version=size, error_correction=error_correction, box_size=10, border=border,fill_color=foreground, back_color=background)
+    img = qrcode.make(data, version=size, error_correction=error_correction, box_size=10, border=border,)#fill_color=foreground, back_color=background)
     img = img.convert("RGBA")
 
     if inside is not None:
