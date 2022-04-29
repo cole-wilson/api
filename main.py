@@ -6,7 +6,7 @@ from PIL import Image
 from flask_cors import CORS, cross_origin
 from flask import Flask, redirect, request, send_file
 from subprocess import Popen, PIPE, STDOUT
-from collections imoprt defaultdict
+from collections import defaultdict
 
 app = Flask(__name__)
 cors = CORS(app)
