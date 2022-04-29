@@ -6,6 +6,7 @@ from PIL import Image
 from flask_cors import CORS, cross_origin
 from flask import Flask, redirect, request, send_file
 from subprocess import Popen, PIPE, STDOUT
+from collections imoprt defaultdict
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -86,6 +87,18 @@ def make_qr():
         img.paste(brand, (xpos, ypos, xpos + w, ypos + h))
         
     return serve_image(img)
+
+counts = defaultdict(int)
+
+@app.route('/count')
+@cross_origin()
+def counter():
+    global counts
+    _id = request.args.get("i", "[default]")
+    if "no" not in request.args:
+        counts[_id] += 1
+    return str(counts[_id])
+        
 
 app.run(port=80, host="0.0.0.0")
     
