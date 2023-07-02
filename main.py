@@ -15,9 +15,9 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 def serve_image(pil_img):
     img_io = StringIO()
-    pil_img.save("image.png")
+    pil_img.save("image.jpg")
     img_io.seek(0)
-    return send_file("image.png", mimetype='image/jpeg')
+    return send_file("image.jpg", mimetype='image/jpeg')
 
 @app.after_request
 def apply_text_only(response):
@@ -39,6 +39,13 @@ def forbidden(e): return '404 not found'
 @app.route('/')
 def root():
   return redirect(os.environ['ROOT_URL'], code=302)
+
+@app.route('/jpeg')
+def jpeg():
+    url = request.args.get("url")
+    fetch = requests.get(url)
+    img = Image.open(fetch.raw)
+    return serve_image(img)
 
 @app.route('/shorten')
 @cross_origin()
