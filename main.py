@@ -43,9 +43,16 @@ def root():
 @app.route('/jpeg')
 def jpeg():
     url = request.args.get("url")
-    fetch = requests.get(url)
+    fetch = requests.get(url, headers={"user-agent":"curl/7.84.0"}, stream=True)
+    print(fetch.status_code)
     img = Image.open(fetch.raw)
+    img = img.convert("RGB")
     return serve_image(img)
+
+@app.route('/workouts')
+def workouts():
+    token = request.args.get("token")
+    return '{"workouts":[{"name":"umm", "icon":"bike", "text":"some text"}]}'
 
 @app.route('/shorten')
 @cross_origin()
@@ -67,7 +74,7 @@ def shorten_url():
 def diagon():
     graph_type = request.args.get("type", "math").title()
     return requests.get("http://localhost:7642?type="+graph_type, data=request.get_data().decode()).content
-    
+
 @app.route('/qr')
 @cross_origin()
 def make_qr():
@@ -78,7 +85,7 @@ def make_qr():
     border = request.args.get("border", 1)
     data = request.args.get("data")
     error_correction = qrcode.constants.ERROR_CORRECT_L
-    
+
     if inside is not None: error_correction = qrcode.constants.ERROR_CORRECT_H
 
     img = qrcode.make(data, version=size, error_correction=error_correction, box_size=10, border=border,)#fill_color=foreground, back_color=background)
@@ -92,7 +99,7 @@ def make_qr():
         xpos, ypos = (img.width - w)/2, (img.height - h)/2
         xpos, ypos = round(xpos), round(ypos)
         img.paste(brand, (xpos, ypos, xpos + w, ypos + h))
-        
+
     return serve_image(img)
 
 counts = defaultdict(int)
@@ -105,9 +112,6 @@ def counter():
     if "no" not in request.args:
         counts[_id] += 1
     return str(counts[_id])
-        
+
 
 app.run(port=80, host="0.0.0.0")
-    
-    
-    
