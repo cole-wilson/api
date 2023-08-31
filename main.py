@@ -1,6 +1,9 @@
 import os
 import qrcode
 import requests
+import csv
+import json
+from datetime import datetime
 from io import BytesIO, StringIO
 from PIL import Image
 from flask_cors import CORS, cross_origin
@@ -51,8 +54,15 @@ def jpeg():
 
 @app.route('/workouts')
 def workouts():
-    token = request.args.get("token")
-    return '{"workouts":[{"name":"umm", "icon":"bike", "text":"some text"}]}'
+    now = datetime.now()
+    sheet = requests.get("https://docs.google.com/spreadsheets/d/1IO7FKAZSxcV-Mcolwbwx9Bn_St_5u9z_HceN-BPGlBA/export?format=csv&gid=1923035130")
+    sheet = StringIO(sheet.text)
+    d = {"workouts":[]}
+    for row in csv.DictReader(sheet):
+        if int(row["year"])<now.year or int(row["month"])<now.month or int(row["day"])<now.day:
+            continue
+        d["workouts"].append(row)
+    return json.dumps(d)
 
 @app.route('/shorten')
 @cross_origin()
